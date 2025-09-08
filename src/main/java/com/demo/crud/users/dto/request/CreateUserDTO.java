@@ -1,4 +1,4 @@
-package com.demo.crud.dto.request;
+package com.demo.crud.users.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

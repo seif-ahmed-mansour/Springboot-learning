@@ -1,4 +1,4 @@
-package com.demo.crud.dto.response;
+package com.demo.crud.users.dto.response;
 
 import com.demo.crud.utils.StandardResponse;
 import lombok.*;

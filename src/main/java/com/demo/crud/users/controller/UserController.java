@@ -1,12 +1,9 @@
-package com.demo.crud.controller;
+package com.demo.crud.users.controller;
 
-import com.demo.crud.dto.request.CreateUserDTO;
-import com.demo.crud.dto.response.UserResponseDTO;
-import com.demo.crud.service.UserService;
-import com.demo.crud.storage.User;
-import lombok.Getter;
+import com.demo.crud.users.dto.request.CreateUserDTO;
+import com.demo.crud.users.dto.response.UserResponseDTO;
+import com.demo.crud.users.service.UserService;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

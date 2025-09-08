@@ -1,7 +1,7 @@
-package com.demo.crud.service;
+package com.demo.crud.users.service;
 
-import com.demo.crud.dto.request.CreateUserDTO;
-import com.demo.crud.dto.response.UserResponseDTO;
+import com.demo.crud.users.dto.request.CreateUserDTO;
+import com.demo.crud.users.dto.response.UserResponseDTO;
 import com.demo.crud.storage.InMemoryStorage;
 import com.demo.crud.storage.User;
 import lombok.RequiredArgsConstructor;
@@ -141,5 +141,6 @@ public class UserService {
 
         return ResponseEntity.ok(responseList);
     }
+
 
 }
