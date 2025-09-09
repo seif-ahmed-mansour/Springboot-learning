@@ -13,6 +13,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class studentResponseDTO extends StandardResponse {
-    private String name;
-    private Integer grade;
+    private StudentDataDTO data;
 }

@@ -31,9 +31,8 @@ public class studentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<studentResponseDTO> createStudent(@Valid @RequestBody studentRequestDTO requestDTO,
-                                                            BindingResult bindingResult) {
-        return studentsvc.createStudent(requestDTO, bindingResult);
+    public ResponseEntity<studentResponseDTO> createStudent(@Valid @RequestBody studentRequestDTO requestDTO) {
+        return studentsvc.createStudent(requestDTO);
     }
 
     // 2] Add GET student by ID endpoint
@@ -45,10 +44,8 @@ public class studentController {
     // 3] Add UPDATE student endpoint
     @PutMapping("/update/{id}")
     public ResponseEntity<studentResponseDTO> updateStudent(@Valid @RequestBody studentRequestDTO requestDTO,
-                                                            @PathVariable(value = "id") long id,
-                                                            BindingResult bindingResult
-                                                            ){
-        return studentsvc.updateStudent(requestDTO,id,bindingResult);
+                                                            @PathVariable(value = "id") long id){
+        return studentsvc.updateStudent(requestDTO,id);
     }
     // 4] Add DELETE student endpoint
     @DeleteMapping("/{id}")
