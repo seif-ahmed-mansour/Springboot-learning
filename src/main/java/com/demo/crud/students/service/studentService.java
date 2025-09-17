@@ -3,7 +3,7 @@ package com.demo.crud.students.service;
 
 import com.demo.crud.students.dto.response.StudentDataDTO;
 import com.demo.crud.students.model.Student;
-import com.demo.crud.students.model.StudentRepository;
+import com.demo.crud.students.repo.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -160,4 +160,31 @@ public class studentService {
         }
         return ResponseEntity.status(response.getHttpStatus()).body(response);
     }
+    public ResponseEntity<studentResponseDTO> getStudentInfo(Long id) {
+        final studentResponseDTO response = new studentResponseDTO();
+
+        List<Object[]> rows = studentRepo.getStudentInfoById(id);
+
+        if (rows.isEmpty()) {
+            response.setCode("-1");
+            response.setStatus("FAILED");
+            response.setMessage("No student found");
+            response.setHttpStatus(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(response.getHttpStatus()).body(response);
+        }
+
+        Object[] row = rows.getFirst();
+        StudentDataDTO data = new StudentDataDTO();
+        data.setName((String) row[1]);
+        data.setGrade((Integer) row[2]);
+
+        response.setCode("0");
+        response.setStatus("SUCCESS");
+        response.setMessage("Student info retrieved");
+        response.setHttpStatus(HttpStatus.OK);
+        response.setData(data);
+
+        return ResponseEntity.status(response.getHttpStatus()).body(response);
+    }
+
 }

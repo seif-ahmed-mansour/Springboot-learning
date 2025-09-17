@@ -9,9 +9,12 @@ import java.util.List;
 @SpringBootApplication
 public class CrudApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CrudApplication.class, args);
 
+	public static void main(String[] args) {
+
+		SpringApplication.run(CrudApplication.class, args);
+        System.out.println("===== Server Started =====");
 	}
+
 
 }

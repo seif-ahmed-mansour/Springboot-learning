@@ -52,4 +52,10 @@ public class studentController {
     public  ResponseEntity<studentResponseDTO> deleteStudent(@PathVariable(value = "id") long id){
         return studentsvc.deleteStudent(id);
     }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<studentResponseDTO> getStudentInfo(@PathVariable Long id) {
+        return studentsvc.getStudentInfo(id);
+    }
+
 }
