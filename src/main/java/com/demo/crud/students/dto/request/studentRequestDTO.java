@@ -25,5 +25,7 @@ public class studentRequestDTO {
     @Positive(message = "Student age must be a positive number")
     private Integer age;
 
+    @NotBlank(message = "Password is required")
+    private String password;
 
 }

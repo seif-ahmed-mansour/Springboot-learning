@@ -15,10 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/students")
 public class studentController {
-    private final studentService studentsvc;
 
-    // TODO: Tasks::
-    // 1] Validate request DTO manually for now, i.e., if else pattern /. DONE without doing it manually😉
+    private final studentService studentsvc;
 
     @Autowired
     public studentController(studentService studentsvc){
