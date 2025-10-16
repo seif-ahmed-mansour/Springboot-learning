@@ -17,6 +17,9 @@ java {
 repositories {
 	mavenCentral()
 }
+configurations {
+    proguard
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -43,8 +46,62 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    proguard 'com.guardsquare:proguard-base:7.6.0'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('proguardTask', JavaExec) {
+    dependsOn plainJar            // make sure plain jar exists
+    group = 'build'
+    description = 'Run ProGuard to obfuscate the plain jar'
+
+    mainClass.set('proguard.ProGuard')
+    classpath = configurations.proguard
+
+    doFirst {
+        def injarFile = file("${buildDir}/libs/${project.name}-${project.version}-plain.jar")
+        if (!injarFile.exists()) {
+            throw new GradleException("Input jar not found: ${injarFile}")
+        }
+
+        def runtimeJars = configurations.runtimeClasspath.files.findAll { f ->
+            !f.absolutePath.equalsIgnoreCase(injarFile.absolutePath)
+        }
+
+        def argsList = []
+        argsList += ['-injars', injarFile.absolutePath]
+
+        runtimeJars.each { f ->
+            argsList += ['-libraryjars', f.absolutePath]
+        }
+
+        argsList += ['-libraryjars', "${System.getProperty('java.home')}/jmods/java.base.jmod(!**.jar;!module-info.class)"]
+
+        def outJar = file("${buildDir}/libs/${project.name}-${project.version}-obfuscated.jar")
+        argsList += ['-outjars', outJar.absolutePath]
+
+        argsList += ['@' + project.rootDir.toPath().resolve('proguard.pro').toString()]
+
+        args = argsList
+    }
+}
+
+
+tasks.register('buildObfuscated') {
+    dependsOn 'bootJar', 'proguardTask'
+    doLast {
+        println('Repackage step: replace BOOT-INF/classes with ProGuard output (implement).')
+    }
+}
+
+tasks.register('plainJar', Jar) {
+    archiveClassifier.set('plain')
+    from sourceSets.main.output
+    dependsOn classes
+}
+
